@@ -7,7 +7,7 @@ const connectCloudinary = async () => {
         cloudinary.config({
             cloud_name: constants.CLOUDINARY_CLOUD_NAME,
             api_key: constants.CLOUDINARY_API_KEY,
-            api_secret: constants.CLOUDINARY_API_SECRET,
+            api_secret: constants.CLOUDINARY_SECRET_KEY,
         });
 
         // Ping to verify connection
@@ -18,4 +18,5 @@ const connectCloudinary = async () => {
     }
 };
 
+export { cloudinary };
 export default connectCloudinary;
