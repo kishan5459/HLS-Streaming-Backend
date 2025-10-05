@@ -1,4 +1,11 @@
+
+---
+
 # HTTP Live Streaming Backend
+
+Check out the frontend here: [HLS Player Frontend](https://github.com/kishan5459/HLS-Streaming-Frontend)
+
+---
 
 ## Overview
 
@@ -8,24 +15,24 @@ This backend service processes uploaded videos using FFmpeg and converts them in
 
 ## Features
 
-- **Video Upload**: Accepts video files and processes them into HLS streams.
-- **Adaptive Streaming**: Generates multiple resolutions (360p, 480p, 720p) for adaptive playback.
-- **Cloudinary Integration**: Stores HLS segments and playlists in Cloudinary for global delivery.
-- **RESTful API**: Simple endpoints for uploading and deleting videos.
-- **Robust Logging**: Uses Winston and Morgan for detailed request and process logging.
-- **Error Handling**: Centralized error middleware for consistent API responses.
+* **Video Upload**: Accepts video files and processes them into HLS streams.
+* **Adaptive Streaming**: Generates multiple resolutions (360p, 480p, 720p) for adaptive playback.
+* **Cloudinary Integration**: Stores HLS segments and playlists in Cloudinary for global delivery.
+* **RESTful API**: Simple endpoints for uploading, listing, and deleting videos.
+* **Robust Logging**: Uses Winston and Morgan for detailed request and process logging.
+* **Error Handling**: Centralized error middleware for consistent API responses.
 
 ---
 
 ## Tech Stack
 
-- Node.js (v22)
-- Express.js
-- FFmpeg (via `fluent-ffmpeg` and `ffmpeg-static`)
-- Cloudinary
-- Multer (file uploads)
-- Winston & Morgan (logging)
-- dotenv (environment configuration)
+* Node.js (v22)
+* Express.js
+* FFmpeg (via `fluent-ffmpeg` and `ffmpeg-static`)
+* Cloudinary
+* Multer (file uploads)
+* Winston & Morgan (logging)
+* dotenv (environment configuration)
 
 ---
 
@@ -33,16 +40,19 @@ This backend service processes uploaded videos using FFmpeg and converts them in
 
 ### Prerequisites
 
-- Node.js v22+
-- Cloudinary account (for video storage)
+* Node.js v22+
+* Cloudinary account (for video storage)
+
+---
 
 ## API Endpoints
 
 ### 1. Upload Video for HLS Processing
 
-- **Endpoint:** `POST /api/v1/videos/hls-upload`
-- **Form Data:** `video` (file)
-- **Response:**
+* **Endpoint:** `POST /api/v1/videos/hls-upload`
+* **Form Data:** `video` (file)
+* **Response:**
+
   ```json
   {
     "success": true,
@@ -59,12 +69,34 @@ This backend service processes uploaded videos using FFmpeg and converts them in
     }
   }
   ```
-- **Notes:** The response is sent immediately; processing and uploading continue in the background.
+* **Notes:** The response is sent immediately; processing and uploading continue in the background.
 
-### 2. Delete Video and All HLS Assets
+### 2. List All Uploaded Videos
 
-- **Endpoint:** `GET /api/v1/videos/delete/:videoId`
-- **Response:**
+* **Endpoint:** `GET /api/v1/videos/`
+* **Response:**
+
+  ```json
+  {
+    "success": true,
+    "videos": [
+      {
+        "folder": "video_folder_name",
+        "url": [
+          "https://res.cloudinary.com/.../video1.m3u8",
+          "https://res.cloudinary.com/.../video2.m3u8"
+        ]
+      }
+    ]
+  }
+  ```
+* **Notes:** Retrieves all HLS video folders and their corresponding video URLs stored in Cloudinary.
+
+### 3. Delete Video and All HLS Assets
+
+* **Endpoint:** `GET /api/v1/videos/delete/:videoId`
+* **Response:**
+
   ```json
   {
     "success": true,
@@ -110,6 +142,8 @@ See `.env.sample` for all required variables.
 
 ## Acknowledgements
 
-- [FFmpeg](https://ffmpeg.org/)
-- [Cloudinary](https://cloudinary.com/)
-- [Express.js](https://expressjs.com/) 
+* [FFmpeg](https://ffmpeg.org/)
+* [Cloudinary](https://cloudinary.com/)
+* [Express.js](https://expressjs.com/)
+
+---
