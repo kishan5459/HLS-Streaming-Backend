@@ -147,3 +147,12 @@ See `.env.sample` for all required variables.
 * [Express.js](https://expressjs.com/)
 
 ---
+
+## 🎥 Demo Video
+
+[Watch the demo](https://drive.google.com/file/d/1onBHhkpTbl9LzQCd3dgHPJzNOQNugrn4/view?usp=drive_link)
+
+change quality to 720p and increase speed(if you need) for better experience while playing video
+
+while recording dropdown menu is not recorded by recorder so there is image of that
+[Video with dropdown image](https://drive.google.com/file/d/1UpkDMg66BGkWd7coOLmv1Y3rhQMAmd-5/view?usp=drive_link) 
