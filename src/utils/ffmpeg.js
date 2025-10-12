@@ -16,13 +16,13 @@ export const hlSVideoTranscoding = async (videoPath, outputPath) => {
                 })
                 .outputOptions([
                     "-filter_complex",
-                    "[0:v]split=3[v1][v2][v3]",
+                    "[0:v]split=3[v1][v2][v3];[0:a]asplit=3[a1][a2][a3]",
 
                     // 360p
                     "-map",
                     "[v1]",
                     "-map",
-                    "0:a?",
+                    "[a1]",
                     "-c:v",
                     "libx264",
                     "-preset",
@@ -50,7 +50,7 @@ export const hlSVideoTranscoding = async (videoPath, outputPath) => {
                     "-map",
                     "[v2]",
                     "-map",
-                    "0:a?",
+                    "[a2]",
                     "-c:v",
                     "libx264",
                     "-preset",
@@ -78,7 +78,7 @@ export const hlSVideoTranscoding = async (videoPath, outputPath) => {
                     "-map",
                     "[v3]",
                     "-map",
-                    "0:a?",
+                    "[a3]",
                     "-c:v",
                     "libx264",
                     "-preset",
@@ -127,6 +127,12 @@ export const hlSVideoTranscoding = async (videoPath, outputPath) => {
                         `[ERROR] FFmpeg processing error: ${err.message}`
                     );
                     reject(new ApiError(`FFmpeg error: ${err.message}`, 500));
+                })
+                // if any time you will see like nothing is printing on console and just blinkng underscore then press ctrl+c
+                // .on('stderr', (line) => console.log(line))
+                .on('stderr', line => {
+                    if (line.includes('Error')) console.error('[FFmpeg]', line);
+                    else if (process.env.DEBUG_FFMPEG === 'true') console.log('[FFmpeg]', line);
                 })
                 .run();
         });
